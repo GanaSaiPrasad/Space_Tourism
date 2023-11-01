@@ -2,6 +2,33 @@
 /* https://piccalil.li/blog/a-modern-css-reset/ */
 
 /* -------------------------- */
+/* Custom Properties */
+/* -------------------------- */
+
+:root {
+  /* ---Colors------- */
+  --color-dark: 230 35% 7%;
+  --color-light: 231 77% 90%;
+  --color-white: 0 0% 100%;
+  /* ---- fonts ------ */
+  /* The bigger the font-weight,the bigger the font-size */
+  /* The smaller the font-weights,the smaller the font-size */
+  /* Font-weights Representing Font Sizes */
+  --fs-900: 9.375rem;
+  --fs-800: 6.25rem;
+  --fs-700: 3.5rem;
+  --fs-600: 2rem;
+  --fs-500: 1.75rem;
+  --fs-400: 1.125rem;
+  --fs-300: 1rem;
+  --fs-200: 0.875rem;
+  /* ---- font family ------- */
+  --ff-serif: "Bellefair", serif;
+  --ff-sans-cond: "Barlow Condensed", sans-serif;
+  --ff-sans-normal: "Barlow", sans-serif;
+}
+
+/* -------------------------- */
 /* Reset Styles */
 /* -------------------------- */
 
@@ -25,9 +52,23 @@ picture,
 figure {
   margin: 0;
 }
+/* Default Font Weight */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  font-weight: 400;
+}
 
 /* Set up body styles */
 body {
+  font-family: var(--ff-sans-normal);
+  font-size: var(--fs-400);
+  background-color: hsl(var(--color-dark));
+  color: hsl(var(--color-white));
   line-height: 1.5;
   min-height: 100vh;
 }
@@ -61,6 +102,7 @@ select {
 }
 
 /* -------------------------- */
+/* ---- General -------------- */
 /* Utility Classes - Reusable Styles */
 
 .flex {
@@ -72,6 +114,22 @@ select {
   display: grid;
   gap: var(--gap, 1rem);
 }
+
+/* ------- Modern Way Of Adding Spacing ----------------- */
+/* .flow > * + * {
+  margin-top: 1rem;
+  outline: 1px solid red;
+} */
+
+/* Alternative Syntax */
+/* --- Select Everything Except First Child --- */
+/* Using where syntax to remove specificity of selectors so 
+that we can overwrite styles when necessary */
+.flow > *:where(:not(:first-child)) {
+  margin-top: var(--flow-space, 1rem);
+  /* outline: 1px solid red; */
+}
+/* -------------- Spacing End -------------------- */
 
 .container {
   /* Horizontal padding - left & right */
@@ -93,9 +151,248 @@ select {
   border: 0;
 }
 
+/* ---------- General Styles End -----------------*/
+
+/* Colors  (All are Utility Classes (Reusable Styles)
+*/
+.bg-dark {
+  background-color: hsl(var(--color-dark));
+}
+.bg-light {
+  background-color: hsl(var(--color-light));
+}
+.bg-white {
+  background-color: hsl(var(--color-white));
+}
+
+/* Text Colors */
+.text-dark {
+  color: hsl(var(--color-dark));
+}
+.text-light {
+  color: hsl(var(--color-light));
+}
+.text-white {
+  color: hsl(var(--color-white));
+}
+
 /* -------------------------- */
 
-.box {
+/* .box {
   padding: 3rem;
   background: lightblue;
+} */
+
+/* .call-to-action {
+  --gap: 5rem;
+  background: mediumaquamarine;
+  border-radius: 1rem;
+  padding: 2rem;
+} */
+
+.example-component {
+  /* background color with  20% alpha value */
+  background-color: hsl(var(--color-light) / 0.2);
+}
+
+/* ----- typography styles ------- */
+
+/* ------utility classes for font families */
+.ff-serif {
+  font-family: var(--ff-serif);
+}
+.ff-sans-cond {
+  font-family: var(--ff-sans-cond);
+}
+.ff-sans-normal {
+  font-family: var(--ff-sans-normal);
+}
+/* ---- utility classes for letter spacing ----- */
+.letter-spacing-1 {
+  letter-spacing: 4.75px;
+}
+.letter-spacing-2 {
+  letter-spacing: 2.7px;
+}
+.letter-spacing-3 {
+  letter-spacing: 2.35px;
+}
+/* --- Utility class for uppercase letter */
+.uppercase {
+  text-transform: uppercase;
+}
+
+/* ----- Utility Classes for Font Sizes based on Font Weights ----------- */
+.fs-900 {
+  font-size: var(--fs-900);
+}
+.fs-800 {
+  font-size: var(--fs-800);
+}
+.fs-700 {
+  font-size: var(--fs-700);
+}
+.fs-600 {
+  font-size: var(--fs-600);
+}
+.fs-500 {
+  font-size: var(--fs-500);
+}
+.fs-400 {
+  font-size: var(--fs-400);
+}
+.fs-300 {
+  font-size: var(--fs-300);
+}
+.fs-200 {
+  font-size: var(--fs-200);
+}
+
+/* ----- Utility Styles for Line Height ------------------ */
+.fs-900,
+.fs-800,
+.fs-700,
+.fs-600 {
+  line-height: 1.1;
+}
+
+/* ---------- Utility Class For Numbered Titles --------------- */
+
+.numbered-titles {
+  font-family: var(--ff-sans-cond);
+  font-size: var(--fs-500);
+  text-transform: uppercase;
+  letter-spacing: 4.72px;
+}
+
+/* Targeting Span Within Scope Of .numbered-titles class */
+.numbered-titles span {
+  margin-right: 0.5em;
+  font-weight: 700;
+  color: hsl(var(--color-white) / 0.25);
+}
+
+/* -------------------------- */
+/* Utility Styles For Components (Interactive Elements) */
+/* -------------------------- */
+
+.large-button {
+  position: relative;
+  z-index: 1;
+  /* Why Grid */
+  display: grid;
+  align-items: center;
+  border-radius: 50%;
+  padding: 0 2em;
+  aspect-ratio: 1;
+  text-decoration: none;
+}
+
+/* Animating the Explore Button */
+/* Why we Added this After Logic */
+.large-button::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  background: hsl(var(--color-white) / 0.15);
+  transition: opacity 500ms linear, transform 750ms ease-in-out;
+  border-radius: 50%;
+  opacity: 0;
+}
+
+/* Adding Animation to Button On Hover */
+.large-button:hover::after,
+.large-button:focus::after {
+  transform: scale(1.5);
+  opacity: 1;
+}
+
+/* ---- Navigation Panel------ */
+.primary-navigation {
+  --gap: 8rem;
+  /* Vertical Padding */
+  --underline-gap: 2rem;
+  list-style: none;
+  /* Get rid of Default Margins & Padding For Ul Elements */
+  padding: 0;
+  margin: 0;
+}
+
+/* ------- Styling Anchor Elements Within Scope Of Ul Element ------ */
+.primary-navigation a {
+  text-decoration: none;
+}
+
+/* -------- Targeting Span Element Within Scope Of Ul & a(anchor) Element ----------- */
+.primary-navigation a > span {
+  font-weight: 700;
+  margin-right: 0.5em;
+}
+
+/* ----- Underline Indicators -----  */
+/* ----- Common Styling For Navigation & Tab Components ----- */
+/* ------ Select Every Direct Child Of Specified Selector Class & Apply Styles ------- */
+/* Default Setup */
+.underline-indicators > * {
+  /* reset Borders if there are any for our element */
+  border: 0;
+  cursor: pointer;
+  /* ---- Add Border But make it Invisible by Setting Opacity to Zero ------ */
+  border-bottom: 0.2rem solid hsl(var(--color-white) / 0);
+  /* Padding top,bottom & left&right - 0 */
+  /* Adding a Custom Variable For Vertical Gap that Defaults to 1rem */
+  padding: var(--underline-gap, 1rem) 0;
+}
+/* All Direct Descendents Of Ul Upon Hover & Focus */
+.underline-indicators > *:hover,
+.underline-indicators > *:focus {
+  border-color: hsl(var(--color-white) / 0.5);
+}
+
+/* Target the Elements that has a class of active with in scope of Ul element  */
+.underline-indicators > .active,
+/* Apply White Bottom Border to any Element that has a Property of aria-selected set to true */
+.underline-indicators > [aria-selected="true"] {
+  color: hsl(var(--color-white) / 1);
+  border-color: hsl(var(--color-white) / 1);
+}
+
+.tab-indicators {
+  /* --- Resetting the Flex Gap Property --- */
+  --gap: 3rem;
+}
+
+/* ----- Dot Indicators ------ */
+/* Select every lement within scope of dot indicators class */
+.dot-indicators > * {
+  cursor: pointer;
+  /* reset borders */
+  border: 0;
+  border-radius: 50%;
+  padding: 0.5em;
+  background-color: hsl(var(--color-white) / 0.25);
+}
+
+/* ----- Styles Upon Hover & Focus Of Buttons --------- */
+
+.dot-indicators > *:hover,
+.dot-indicators > *:focus {
+  background-color: hsl(var(--color-white) / 0.5);
+}
+
+/* ----- Styles When button element is selected (aria-selected status set to true) --------- */
+.dot-indicators > [aria-selected="true"] {
+  background-color: hsl(var(--color-white) / 1);
+}
+
+/* ----- number Indicators ------ */
+/* Select every lement within scope of number indicators class */
+.number-indicators > * {
+  cursor: pointer;
+
+  border: 0;
+  border-radius: 50%;
+  padding: 2em;
 }
